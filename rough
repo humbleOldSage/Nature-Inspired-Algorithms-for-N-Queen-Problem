@@ -1,0 +1,83 @@
+#     def heuristic(self, state):
+#         flag=0
+#        for i in state:
+
+#            if state[i]!=i:
+#                flag=1
+#                break
+
+#        if flag==0:
+#            return 100
+        queens=[]
+        for i in state:
+            queens.append([i,state[i]])
+
+
+        n=self.N
+        # put the queens on the chessboard
+        chessboard = self.compute_chessboard(queens, n)
+
+        for (x, y) in queens:
+
+            for i in range(n):
+                if state[i]==y:
+                    flag=1
+                    break
+                else:
+                    chessboard[i][y] = 0
+
+            if flag == 1:
+                return 100
+
+            for j in range(n):
+                if state[x]==j:
+                    flag=1
+                    break
+                else:
+                    chessboard[x][j] = 0
+
+            if flag == 1:
+                return 100
+
+            for k in range(min(x, n - y)):
+                if state[x-k]==y+k:
+                    flag=1
+                    break
+                else:
+                    chessboard[x - k][y + k] = 0
+
+            if flag == 1:
+                return 100
+
+            for k in range(min(n - x, y)):
+                if state[x+k]==y-k:
+                    flag=1
+                    break
+                else:
+                    chessboard[x + k][y - k] = 0
+
+            if flag == 1:
+                return 100
+
+            for k in range(min(n - x, n - y)):
+                if state[x+k]==y+k:
+                    flag=1
+                    break
+                else:
+                    chessboard[x + k][y + k] = 0
+
+            if flag == 1:
+                return 100
+
+            for k in range(min(n + x, n + y)):
+                if state[x-k]==y-k:
+                    flag=1
+                    break
+                else:
+                    chessboard[x - k][y - k] = 0
+
+            if flag == 1:
+                return 100
+
+
+        return sum(list(map(sum, chessboard)))
